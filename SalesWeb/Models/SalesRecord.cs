@@ -11,12 +11,15 @@ namespace SalesWeb.Models
 
         public SalesRecord() { }
 
-        public SalesRecord(int id, DateTime date, double amount, SalesStatus status)
+        public Seller Seller { get; set; }
+
+        public SalesRecord(int id, DateTime date, double amount, SalesStatus status, Seller seller)
         {
             Id = id;
             Date = date;
             Amount = amount;
             Status = status;
+            Seller = seller;
         }
 
 

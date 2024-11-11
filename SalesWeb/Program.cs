@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using SalesWeb.Models;
+using SalesWeb.Data;
+using SalesWeb.Services;
 namespace SalesWeb
 {
     public class Program
@@ -16,10 +18,20 @@ namespace SalesWeb
                         optionsBuilder => optionsBuilder.MigrationsAssembly("SalesWeb") // Defina o assembly onde as migrações estão
                         ));
 
+            builder.Services.AddScoped<SeedingService>();
+            builder.Services.AddScoped<SellerService>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var seedingService = services.GetRequiredService<SeedingService>();
+                seedingService.Seed();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -29,6 +41,7 @@ namespace SalesWeb
                 app.UseHsts();
             }
 
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -39,6 +52,9 @@ namespace SalesWeb
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
 
             app.Run();
         }
