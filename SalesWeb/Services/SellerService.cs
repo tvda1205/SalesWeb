@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesWeb.Models;
 using System.Data;
+using SalesWeb.Services.Exceptions;
 
 namespace SalesWeb.Services
 {
