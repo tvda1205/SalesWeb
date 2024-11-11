@@ -21,11 +21,22 @@ namespace SalesWeb
             builder.Services.AddScoped<SeedingService>();
             builder.Services.AddScoped<SellerService>();
             builder.Services.AddScoped<DepartmentService>();
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            var supportedCultures = new[] { "en-US", "pt-BR" };
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US"),
+                SupportedCultures = supportedCultures.Select(c => new System.Globalization.CultureInfo(c)).ToList(),
+                SupportedUICultures = supportedCultures.Select(c => new System.Globalization.CultureInfo(c)).ToList()
+            };
+
             var app = builder.Build();
+            app.UseRequestLocalization(localizationOptions);
+
 
             using (var scope = app.Services.CreateScope())
             {
