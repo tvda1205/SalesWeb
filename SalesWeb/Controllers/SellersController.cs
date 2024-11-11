@@ -11,7 +11,7 @@ using SalesWeb.Models.ViewModels;
 using SalesWeb.Services;
 using SalesWeb.Services.Exceptions;
 
-namespace SalesWebMvc.Controllers
+namespace SalesWeb.Controllers
 {
     public class SellersController : Controller
     {
