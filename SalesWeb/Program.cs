@@ -21,6 +21,7 @@ namespace SalesWeb
             builder.Services.AddScoped<SeedingService>();
             builder.Services.AddScoped<SellerService>();
             builder.Services.AddScoped<DepartmentService>();
+            builder.Services.AddScoped<SalesRecordsService>();
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             // Add services to the container.
